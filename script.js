@@ -31,17 +31,16 @@ function initDirection() {
   return Math.floor(Math.random() * 4);
 }
 
-function initSnake(color) {
+function initSnake() {
   return {
-    color: color,
     ...initHeadAndBody(),
     direction: initDirection(),
     score: 0,
   };
 }
-let snake1 = initSnake("purple");
+let snake1 = initSnake();
 
-let apple = {
+let apple1 = {
   position: initPosition(),
 };
 
@@ -49,9 +48,8 @@ let apple2 = {
   position: initPosition(),
 };
 
-function drawCell(ctx, x, y, color) {
-  ctx.fillStyle = color;
-  ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+function drawCell(ctx, img, x, y) {
+  ctx.drawImage(img, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 }
 
 function drawGambar(ctx, img, x, y) {
@@ -75,17 +73,19 @@ function draw() {
   setInterval(function () {
     let snakeCanvas = document.getElementById("snakeBoard");
     let ctx = snakeCanvas.getContext("2d");
-    let img = document.getElementById("apel");
+    let imgApp = document.getElementById("apel");
+    let imgHead = document.getElementById("head");
+    let imgBody = document.getElementById("body");
 
     ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-    drawCell(ctx, snake1.head.x, snake1.head.y, snake1.color);
+    drawCell(ctx, imgHead, snake1.head.x, snake1.head.y);
     for (let i = 1; i < snake1.body.length; i++) {
-      drawCell(ctx, snake1.body[i].x, snake1.body[i].y, snake1.color);
+      drawCell(ctx, imgBody, snake1.body[i].x, snake1.body[i].y);
     }
 
-    drawGambar(ctx, img, apple.position.x, apple.position.y);
-    drawGambar(ctx, img, apple2.position.x, apple2.position.y);
+    drawGambar(ctx, imgApp, apple1.position.x, apple1.position.y);
+    drawGambar(ctx, imgApp, apple2.position.x, apple2.position.y);
 
     drawScore(snake1);
   }, REDRAW_INTERVAL);
@@ -117,28 +117,28 @@ function eat(snake, apple) {
 function moveLeft(snake) {
   snake.head.x--;
   teleport(snake);
-  eat(snake, apple);
+  eat(snake, apple1);
   eat(snake, apple2);
 }
 
 function moveRight(snake) {
   snake.head.x++;
   teleport(snake);
-  eat(snake, apple);
+  eat(snake, apple1);
   eat(snake, apple2);
 }
 
 function moveDown(snake) {
   snake.head.y++;
   teleport(snake);
-  eat(snake, apple);
+  eat(snake, apple1);
   eat(snake, apple2);
 }
 
 function moveUp(snake) {
   snake.head.y--;
   teleport(snake);
-  eat(snake, apple);
+  eat(snake, apple1);
   eat(snake, apple2);
 }
 
