@@ -9,7 +9,7 @@ const DIRECTION = {
   UP: 2,
   DOWN: 3,
 };
-const MOVE_INTERVAL = 100;
+let MOVE_INTERVAL = 125;
 
 function initPosition() {
   return {
@@ -57,16 +57,39 @@ function drawImg(ctx, img, x, y) {
   ctx.drawImage(img, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 }
 
+//score
 function drawScore(snake) {
   let scoreCanvas;
-  scoreCanvas = document.getElementById("score1Board");
+  scoreCanvas = document.getElementById("scoreBoard");
   let scoreCtx = scoreCanvas.getContext("2d");
 
   scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
   scoreCtx.font = "70px Arial";
   scoreCtx.fillStyle = snake.color;
   scoreCtx.fillText(snake.score, 80, 125);
-  // scoreCanvas.style.textAlign = "center";
+}
+
+//speed
+function drawSpeed(snake) {
+  let speedCanvas;
+  speedCanvas = document.getElementById("speedBoard");
+  let scoreCtx = speedCanvas.getContext("2d");
+
+  if (snake.score == 5) {
+    MOVE_INTERVAL = 110;
+  } else if (snake.score == 10) {
+    MOVE_INTERVAL = 95;
+  } else if (snake.score == 15) {
+    MOVE_INTERVAL = 80;
+  } else if (snake.score == 20) {
+    MOVE_INTERVAL = 65;
+  } else if (snake.score == 25) {
+    MOVE_INTERVAL = 50;
+  }
+  scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  scoreCtx.font = "50px Arial";
+  scoreCtx.fillText(MOVE_INTERVAL, 55, 120);
+  scoreCtx.fillText("MS", 60, 170);
 }
 
 function drawLife(snake) {
@@ -76,7 +99,6 @@ function drawLife(snake) {
 
   lifeCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
   lifeCtx.font = "30px Arial";
-  lifeCtx.fillStyle = snake.color;
   lifeCtx.fillText(snake.heart, 10, lifeCanvas.scrollHeight / 2);
 }
 
@@ -121,6 +143,7 @@ function draw() {
 
     drawScore(snake1);
     drawLife(snake1);
+    drawSpeed(snake1);
   }, REDRAW_INTERVAL);
 }
 
