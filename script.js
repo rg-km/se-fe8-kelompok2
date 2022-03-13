@@ -101,7 +101,15 @@ function draw() {
     drawImg(ctx, imgApp, apple2.position.x, apple2.position.y);
 
     //draw heart
-    drawImg(ctx, imgHeart, heart.position.x, heart.position.y);
+    let prime = 0;
+    for (let j = 1; j <= snake1.score; j++) {
+      if (snake1.score % j == 0) {
+        prime++;
+      }
+    }
+    if (prime == 2) {
+      drawImg(ctx, imgHeart, heart.position.x, heart.position.y);
+    }
 
     drawScore(snake1);
     drawLife(snake1);
@@ -134,6 +142,7 @@ function getLife(snake, heart) {
   if (snake.head.x == heart.position.x && snake.head.y == heart.position.y) {
     heart.position = initPosition();
     snake.heart++;
+    snake.score++;
   }
 }
 
