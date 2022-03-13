@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.info-board {
+  display: flex;
+}
+
+#snakeBoard {
+  margin-top: 1rem;
+}
+
+.board {
+  border: 1px solid #000000; 
+  background-color: rgb(250, 237, 210);
+  margin: 1rem;
+}
