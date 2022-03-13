@@ -41,7 +41,7 @@ function initSnake(color) {
       { x: 3, y: 1 },
     ],
     score: 0,
-    level: 5,
+    level: 1,
     speed: 125,
   }
 }
@@ -165,6 +165,9 @@ let obstacles = [
   },
 ]
 
+// for lifepoints
+let lifes = []
+
 function drawSnakeHead(ctx, snake) {
   var img
 
@@ -212,6 +215,13 @@ function drawObstacles(ctx, snake, obstacles) {
   }
 }
 
+function drawLifeGain(ctx, life) {
+  let lifeImg = document.getElementById('lifepoint')
+  setTimeout(function () {
+    ctx.drawImage(lifeImg, life.pos.x * CELL_SIZE, life.pos.y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+  }, REDRAW_INTERVAL / 2)
+}
+
 // main function to be executed
 function draw() {
   setInterval(function () {
@@ -235,6 +245,11 @@ function draw() {
       let apple = apples[i]
       var img = document.getElementById('apple')
       ctx.drawImage(img, apple.position.x * CELL_SIZE, apple.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+    }
+
+    // draw random life point in canvas
+    for (let i = 0; i < lifes.length; i++) {
+      drawLifeGain(ctx, lifes[i])
     }
     
     // draw heart or lifepoint on top screen
@@ -284,6 +299,22 @@ function getSpeed(level) {
   return 150 - (level - 1) * 25;
 }
 
+// check prime score number
+function checkPrime(score) {
+  if (score <= 1) {
+    return false
+  }
+
+  for (var i = 2; i < score; i++) {
+    if (score % i === 0) {
+      return false
+    }
+  }
+
+  return true
+}
+
+
 // Eat the apples
 function eat(snake, apples) {
   for (let i = 0; i < apples.length; i++) {
@@ -300,7 +331,22 @@ function eat(snake, apples) {
         alert("You're advance to level" + " " + snake.level)
       }
 
+      // Does the score is prime number?
+      if (checkPrime(snake.score)) {
+        lifes.push({ pos: initPosition() })
+      }
+
       snake.body.push({ x: snake.head.x, y: snake.head.y })
+    }
+  }
+}
+
+// After eating lifepoint
+function eatlifepoint(snake, lifes) {
+  for (let i = 0; i < lifes.length; i++) {
+    if (snake.head.x === lifes[i].pos.x && snake.head.y === lifes[i].pos.y) {
+      snake.heart.push({ x: snake.heart.length + 1, y: 1 })
+      lifes.splice(i, 1)
     }
   }
 }
@@ -310,24 +356,28 @@ function moveLeft(snake) {
   snake.head.x--
   teleport(snake)
   eat(snake, apples)
+  eatlifepoint(snake, lifes)
 }
 
 function moveRight(snake) {
   snake.head.x++
   teleport(snake)
   eat(snake, apples)
+  eatlifepoint(snake, lifes)
 }
 
 function moveDown(snake) {
   snake.head.y++
   teleport(snake)
   eat(snake, apples)
+  eatlifepoint(snake, lifes)
 }
 
 function moveUp(snake) {
   snake.head.y--
   teleport(snake)
   eat(snake, apples)
+  eatlifepoint(snake, lifes)
 }
 /* ------------------------------------ */
 
