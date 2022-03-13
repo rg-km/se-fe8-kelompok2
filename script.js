@@ -70,28 +70,18 @@ function drawScore(snake) {
 }
 
 //speed
-function drawSpeed(snake) {
+function drawSpeed() {
   let speedCanvas;
   speedCanvas = document.getElementById("speedBoard");
   let scoreCtx = speedCanvas.getContext("2d");
 
-  if (snake.score == 5) {
-    MOVE_INTERVAL = 110;
-  } else if (snake.score == 10) {
-    MOVE_INTERVAL = 95;
-  } else if (snake.score == 15) {
-    MOVE_INTERVAL = 80;
-  } else if (snake.score == 20) {
-    MOVE_INTERVAL = 65;
-  } else if (snake.score == 25) {
-    MOVE_INTERVAL = 50;
-  }
   scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
   scoreCtx.font = "50px Arial";
-  scoreCtx.fillText(MOVE_INTERVAL, 55, 120);
-  scoreCtx.fillText("MS", 60, 170);
+  scoreCtx.fillText(MOVE_INTERVAL, 55, 90);
+  scoreCtx.fillText("MS", 60, 140);
 }
 
+//life
 function drawLife(snake) {
   let lifeCanvas;
   lifeCanvas = document.getElementById("lifeBoard");
@@ -102,6 +92,30 @@ function drawLife(snake) {
   lifeCtx.fillText(snake.heart, 10, lifeCanvas.scrollHeight / 2);
 }
 
+function levelUp(snake) {
+  let up = new Audio("assets/sound1.mp3");
+  if (snake.score === 2) {
+    up.loop = false;
+    up.play();
+    alert("LEVEL 2");
+    MOVE_INTERVAL = 110;
+  } else if (snake.score == 10) {
+    up.loop = false;
+    up.play();
+    alert("LEVEL 3");
+    MOVE_INTERVAL = 95;
+  } else if (snake.score == 15) {
+    up.loop = false;
+    up.play();
+    alert("LEVEL 4");
+    MOVE_INTERVAL = 80;
+  } else if (snake.score == 20) {
+    up.loop = false;
+    up.play();
+    alert("LEVEL 5");
+    MOVE_INTERVAL = 65;
+  }
+}
 function draw() {
   setInterval(function () {
     let snakeCanvas = document.getElementById("snakeBoard");
@@ -143,7 +157,7 @@ function draw() {
 
     drawScore(snake1);
     drawLife(snake1);
-    drawSpeed(snake1);
+    drawSpeed();
   }, REDRAW_INTERVAL);
 }
 
@@ -167,6 +181,7 @@ function eatApple(snake, apple) {
     apple.position = initPosition();
     snake.score++;
     snake.body.push({ x: snake.head.x, y: snake.head.y });
+    levelUp(snake);
   }
 }
 function getLife(snake, heart) {
@@ -226,7 +241,7 @@ function checkCollision(snakes) {
     bel.play();
 
     alert("Game over");
-    snake1 = initSnake("purple");
+    snake1 = initSnake();
   }
   return isCollide;
 }
