@@ -14,11 +14,13 @@
     <img id="snake-body" src="assets/img/body.png" hidden />
     <img id="heart" src="assets/img/heart.png" hidden />
 
+    <!-- Import assets: audio -->
     <audio id="game-over" controls preload="none" hidden src="assets/sound/game-over.mp3"></audio>
+    <audio id="level-up" controls preload="none" hidden src="assets/sound/level-up.mp3"></audio>
 
     <!-- Draw on canvas -->
     <div class="screen">
-      <h1>Snake</h1>
+      <h1><span id="snakeLevel"></span></h1>
       <canvas id="snakeBoard" width="600" height="600" class="board"></canvas>
       <div class="info-board">
         <canvas id="scoreBoard" width="200" height="150" class="board"></canvas>
