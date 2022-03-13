@@ -38,6 +38,11 @@ function initSnake(color) {
     ...initHeadAndBody(),
     direction: initDirection(),
     score: 0,
+    heart: [
+      { x: 1, y: 1 },
+      { x: 2, y: 1 },
+      { x: 3, y: 1 },
+    ],
   }
 }
 let snake = initSnake()
@@ -92,18 +97,28 @@ function draw() {
 
     ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
 
+    //draw head + body for snake
     drawSnakeHead(ctx, snake)
     var bodyImage = document.getElementById('snake-body')
     for (let i = 1; i < snake.body.length; i++) {
       ctx.drawImage(bodyImage, snake.body[i].x * CELL_SIZE, snake.body[i].y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
     }
-
+    
+    //draw apples in random positions
     for (let i = 0; i < apples.length; i++) {
       let apple = apples[i]
 
       var img = document.getElementById('apple')
       ctx.drawImage(img, apple.position.x * CELL_SIZE, apple.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
     }
+    
+    //draw heart or lifepoint on top screen
+    for (let i = 0; i < snake.heart.length; i++) {
+
+      var img = document.getElementById('heart')
+      ctx.drawImage(img, snake.heart[i].x * CELL_SIZE, snake.heart[i].y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+    }
+
 
     drawScore(snake)
     drawSpeed(snake)
@@ -167,14 +182,17 @@ function checkCollision(snakes) {
     for (let j = 0; j < snakes.length; j++) {
       for (let k = 1; k < snakes[j].body.length; k++) {
         if (snakes[i].head.x == snakes[j].body[k].x && snakes[i].head.y == snakes[j].body[k].y) {
+          snake.heart.pop()
+        } if (snake.heart.length == 0) {
           isCollide = true
         }
       }
     }
   }
   if (isCollide) {
-    alert('Game over')
-    snake = initSnake('green')
+    document.getElementById('game-over').play();
+    alert('Game over');
+    snake = initSnake('green');
   }
   return isCollide
 }
@@ -194,6 +212,7 @@ function move(snake) {
       moveUp(snake)
       break
   }
+  
   moveBody(snake)
   if (!checkCollision([snake])) {
     setTimeout(function () {
