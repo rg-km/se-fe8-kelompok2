@@ -1,5 +1,5 @@
 const CELL_SIZE = 20;
-const CANVAS_SIZE = 400;
+const CANVAS_SIZE = 600;
 const REDRAW_INTERVAL = 50;
 const WIDTH = CANVAS_SIZE / CELL_SIZE;
 const HEIGHT = CANVAS_SIZE / CELL_SIZE;
@@ -63,9 +63,10 @@ function drawScore(snake) {
   let scoreCtx = scoreCanvas.getContext("2d");
 
   scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-  scoreCtx.font = "30px Arial";
+  scoreCtx.font = "70px Arial";
   scoreCtx.fillStyle = snake.color;
-  scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
+  scoreCtx.fillText(snake.score, 80, 125);
+  // scoreCanvas.style.textAlign = "center";
 }
 
 function drawLife(snake) {
@@ -100,7 +101,12 @@ function draw() {
     drawImg(ctx, imgApp, apple1.position.x, apple1.position.y);
     drawImg(ctx, imgApp, apple2.position.x, apple2.position.y);
 
-    //draw heart
+    //draw remaining heart
+    for (let k = 0; k < snake1.heart; k++) {
+      drawImg(ctx, imgHeart, k, 0);
+    }
+
+    //draw heart icon
     let prime = 0;
     for (let j = 1; j <= snake1.score; j++) {
       if (snake1.score % j == 0) {
@@ -110,6 +116,8 @@ function draw() {
     if (prime == 2) {
       drawImg(ctx, imgHeart, heart.position.x, heart.position.y);
     }
+
+    draw;
 
     drawScore(snake1);
     drawLife(snake1);
