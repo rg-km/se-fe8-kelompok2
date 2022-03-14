@@ -347,6 +347,7 @@ function eatlifepoint(snake, lifes) {
     if (snake.head.x === lifes[i].pos.x && snake.head.y === lifes[i].pos.y) {
       snake.heart.push({ x: snake.heart.length + 1, y: 1 })
       lifes.splice(i, 1)
+      snake.score++
     }
   }
 }
@@ -414,7 +415,7 @@ function checkGameover(snakes, obstacles) {
     if (snake.heart.length === 0) {
       document.getElementById('game-over').play()
       alert('Game Over!')
-      snake = initSnake('green')
+      snake = initSnake()
       apples = [
         {
           color: 'red',
