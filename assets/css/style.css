@@ -1,7 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+	--primary: #f9f9f9;
+	--secondary: #6b7aa1;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Roboto','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  max-width: 100vw;
+	height: 100vh;
+	overflow-y: hidden;
+	background: radial-gradient(
+		ellipse at bottom,
+		#013155 10%,
+		#15202b 50%,
+		#010f1f 100%
+	);
+	color: var(--primary);
 }
 
 .screen {
@@ -9,19 +30,38 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 1rem 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.screen h1 {
+  margin-bottom: 1rem;
 }
 
 .info-board {
   display: flex;
+
+}
+
+.container {
+  margin-top: 1rem;
 }
 
 #snakeBoard {
   margin-top: 1rem;
+  border-radius: 4px;
+}
+
+#scoreBoard, #speedBoard {
+  border-radius: 4px;
+  padding: 1rem 0.5rem 1rem 1rem;
 }
 
 .board {
   border: 1px solid #000000; 
-  background-color: rgb(250, 237, 210);
+  /* background-color: rgb(250, 237, 210); */
+  background-image: url('../img/bg-sand.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
   margin: 1rem;
 }

@@ -180,9 +180,9 @@ function drawScore(snake) {
   let scoreCtx = scoreCanvas.getContext('2d');
 
   scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-  scoreCtx.font = '50px Arial';
+  scoreCtx.font = '45px Arial';
   scoreCtx.fillStyle = snake.color;
-  scoreCtx.fillText(snake.score, 35, scoreCanvas.scrollHeight / 2);
+  scoreCtx.fillText(snake.score, 60, scoreCanvas.scrollHeight / 2);
 }
 
 function drawSpeed(snake) {
@@ -347,6 +347,7 @@ function eatlifepoint(snake, lifes) {
     if (snake.head.x === lifes[i].pos.x && snake.head.y === lifes[i].pos.y) {
       snake.heart.push({ x: snake.heart.length + 1, y: 1 })
       lifes.splice(i, 1)
+      snake.score++
     }
   }
 }
@@ -414,7 +415,7 @@ function checkGameover(snakes, obstacles) {
     if (snake.heart.length === 0) {
       document.getElementById('game-over').play()
       alert('Game Over!')
-      snake = initSnake('green')
+      snake = initSnake()
       apples = [
         {
           color: 'red',
