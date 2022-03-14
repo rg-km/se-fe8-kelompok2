@@ -1,15 +1,28 @@
 <html>
-  <head> </head>
-  <script type="text/javascript" src="script.js"></script>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FE 8 - Kelompok 2</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
   <body onload="draw();">
-    <h1>Snake</h1>
-    <canvas id="snakeBoard" width="600" height="600" style="border: 1px solid #000000; background-color: rgb(250, 237, 210)"></canvas>
-    <canvas id="scoreBoard" width="200" height="200" style="border: 1px solid #000000; background-color: rgb(250, 237, 210)"></canvas>
-    <canvas id="lifeBoard" width="50" height="50" style="border: 1px solid #000000"></canvas>
-    <canvas id="speedBoard" width="200" height="200" style="border: 1px solid #000000; background-color: rgb(250, 237, 210)"></canvas>
-    <img id="apel" src="assets/apel.png" hidden />
-    <img id="head" src="assets/head.png" hidden />
-    <img id="body" src="assets/body.png" hidden />
-    <img id="heart" src="assets/heart.png" hidden />
+
+    <!-- Import assets: apple, snake head, body snake, and heart icon -->
+    <img id="apple" src="assets/img/apel.png" hidden />
+    <img id="snake-head" src="assets/img/head.png" hidden />
+    <img id="snake-body" src="assets/img/body.png" hidden />
+    <img id="heart" src="assets/img/heart.png" hidden />
+
+    <!-- Draw on canvas -->
+    <div class="screen">
+      <h1>Snake</h1>
+      <canvas id="snakeBoard" width="600" height="600" class="board"></canvas>
+      <div class="info-board">
+        <canvas id="scoreBoard" width="200" height="150" class="board"></canvas>
+        <canvas id="speedBoard" width="200" height="150" class="board"></canvas>
+      </div>
+    </div>
   </body>
+  <script type="text/javascript" src="script.js"></script>
 </html>
