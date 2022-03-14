@@ -180,9 +180,9 @@ function drawScore(snake) {
   let scoreCtx = scoreCanvas.getContext('2d');
 
   scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-  scoreCtx.font = '50px Arial';
+  scoreCtx.font = '45px Arial';
   scoreCtx.fillStyle = snake.color;
-  scoreCtx.fillText(snake.score, 35, scoreCanvas.scrollHeight / 2);
+  scoreCtx.fillText(snake.score, 60, scoreCanvas.scrollHeight / 2);
 }
 
 function drawSpeed(snake) {
