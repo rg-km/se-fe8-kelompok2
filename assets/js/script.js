@@ -333,7 +333,10 @@ function eat(snake, apples) {
 
       // Does the score is prime number?
       if (checkPrime(snake.score)) {
-        lifes.push({ pos: initPosition() })
+        lifes.push({ pos: initPosition() });
+        if (checkPrime(snake.score)) {
+          lifes.splice(i, 1);
+        }
       }
 
       snake.body.push({ x: snake.head.x, y: snake.head.y })
